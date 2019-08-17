@@ -25,6 +25,7 @@ const SignUp = () => {
 	const [cfmPassword, setCfmPassword] = useState('');
 	const [errorCheck, setErrorCheck] = useState(false);
 	const [pwdErr, setPwdErr] = useState(false);
+	const [usernameErr, setUsernameErr] = useState(false);
 
 	useEffect(() => {
 		if (password !== cfmPassword) {
@@ -41,21 +42,22 @@ const SignUp = () => {
 			setErrorCheck(true);
 			return;
 		}
-
 		if (password !== cfmPassword) {
 			setPwdErr(true);
 			return;
 		}
+
 		const registerInfo = { firstName, lastName, username, password };
+
 		axios
-			.post('/api/user/register', registerInfo)
+			.post('/user/register', registerInfo)
 			.then(res => {
 				if (res.status === 200 && res.data.code === 1001) {
-					console.log(res.data.msg);
+					setUsernameErr(res.data.msg);
 				}
 				if (res.status === 200 && res.data.code === 1000) {
 					console.log('注册成功');
-					console.log(res.data.msg);
+					console.log(res.data.doc);
 				}
 			})
 			.catch(err => console.log(err));
@@ -97,11 +99,18 @@ const SignUp = () => {
 								fullWidth
 								id='firstName'
 								label='名'
-								error={errorCheck && !firstName}
+								error={errorCheck && (!firstName || usernameErr)}
 								value={firstName}
 								onChange={e => setFirstName(e.target.value)}
 							/>
 						</Grid>
+						{usernameErr ? (
+							<Grid item xs={12}>
+								<FormHelperText className={classes.error}>
+									用户名已存在
+								</FormHelperText>
+							</Grid>
+						) : null}
 						<Grid item xs={12}>
 							<TextField
 								variant='outlined'

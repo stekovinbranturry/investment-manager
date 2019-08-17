@@ -15,7 +15,7 @@ Router.post('/register', (req, res) => {
 	const { firstName, lastName, username, password } = req.body;
 	User.findOne({ username }, (err, doc) => {
 		if (doc) {
-			return res.json({ code: 1001, msg: '邮箱已注册' });
+			return res.json({ code: 1001, msg: '用户名已存在' });
 		}
 		const userModel = new User({
 			firstName,
@@ -28,8 +28,12 @@ Router.post('/register', (req, res) => {
 			if (err) {
 				return res.json({ code: 1002, msg: '后台出错' });
 			} else {
-				res.cookie('userid', doc._id);
-				return res.json({ code: 1000, data: doc });
+				const { _id } = doc;
+				res.cookie('userid', _id);
+				return res.json({
+					code: 1000,
+					doc
+				});
 			}
 		});
 	});
