@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import SignUp from './containers/SignUp.jsx';
 
 function App() {
-	return <div>app</div>;
+	return (
+		<Fragment>
+			<SignUp />
+		</Fragment>
+	);
 }
 
 export default App;
