@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+/**
+ * Material-UI
+ */
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -15,9 +20,46 @@ const SignUp = () => {
 	const classes = SignUpStyle();
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [cfmPassword, setCfmPassword] = useState('');
+	const [errorCheck, setErrorCheck] = useState(false);
+	const [pwdErr, setPwdErr] = useState(false);
+
+	useEffect(() => {
+		if (password !== cfmPassword) {
+			setPwdErr(true);
+		}
+		if (password === cfmPassword) {
+			setPwdErr(false);
+		}
+	}, [password, cfmPassword]);
+
+	const handleSignUp = e => {
+		e.preventDefault();
+		if (!firstName || !lastName || !username || !password || !cfmPassword) {
+			setErrorCheck(true);
+			return;
+		}
+
+		if (password !== cfmPassword) {
+			setPwdErr(true);
+			return;
+		}
+		const registerInfo = { firstName, lastName, username, password };
+		axios
+			.post('/api/user/register', registerInfo)
+			.then(res => {
+				if (res.status === 200 && res.data.code === 1001) {
+					console.log(res.data.msg);
+				}
+				if (res.status === 200 && res.data.code === 1000) {
+					console.log('注册成功');
+					console.log(res.data.msg);
+				}
+			})
+			.catch(err => console.log(err));
+	};
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -41,6 +83,7 @@ const SignUp = () => {
 								name='lastName'
 								autoComplete='lname'
 								autoFocus
+								error={errorCheck && !lastName}
 								value={lastName}
 								onChange={e => setLastName(e.target.value)}
 							/>
@@ -54,6 +97,7 @@ const SignUp = () => {
 								fullWidth
 								id='firstName'
 								label='名'
+								error={errorCheck && !firstName}
 								value={firstName}
 								onChange={e => setFirstName(e.target.value)}
 							/>
@@ -63,13 +107,14 @@ const SignUp = () => {
 								variant='outlined'
 								required
 								fullWidth
-								id='email'
-								label='邮箱'
-								name='email'
-								autoComplete='email'
-								type='email'
-								value={email}
-								onChange={e => setEmail(e.target.value)}
+								id='username'
+								label='用户名'
+								name='username'
+								autoComplete='username'
+								type='username'
+								error={errorCheck && !username}
+								value={username}
+								onChange={e => setUsername(e.target.value)}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -82,10 +127,18 @@ const SignUp = () => {
 								type='password'
 								id='password'
 								autoComplete='current-password'
+								error={errorCheck && !password}
 								value={password}
 								onChange={e => setPassword(e.target.value)}
 							/>
 						</Grid>
+						{pwdErr ? (
+							<Grid item xs={12}>
+								<FormHelperText className={classes.error}>
+									密码不一致
+								</FormHelperText>
+							</Grid>
+						) : null}
 						<Grid item xs={12}>
 							<TextField
 								variant='outlined'
@@ -96,24 +149,26 @@ const SignUp = () => {
 								type='password'
 								id='cfmpassword'
 								autoComplete='current-password'
+								error={errorCheck && (!cfmPassword || pwdErr)}
 								value={cfmPassword}
 								onChange={e => setCfmPassword(e.target.value)}
 							/>
 						</Grid>
 					</Grid>
 					<Button
-						type='submit'
 						fullWidth
 						variant='contained'
 						color='primary'
+						size='large'
 						className={classes.submit}
+						onClick={handleSignUp}
 					>
-						Sign Up
+						注册
 					</Button>
 					<Grid container justify='flex-end'>
 						<Grid item>
 							<Link href='#' variant='body2'>
-								Already have an account? Sign in
+								已经有账号了？请登录
 							</Link>
 						</Grid>
 					</Grid>
