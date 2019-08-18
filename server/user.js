@@ -10,7 +10,7 @@ const _filter = { password: 0, __v: 0 };
 /**
  * User route redirect
  */
-Router.get('/auth', (req, res) => {
+Router.post('/auth', (req, res) => {
 	const { userid } = req.cookies;
 	if (!userid) {
 		return res.json({ code: 1 });
