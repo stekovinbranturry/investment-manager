@@ -68,6 +68,25 @@ Router.post('/username', (req, res) => {
 	);
 });
 
+/**
+ * Signin
+ */
+Router.post('/signin', (req, res) => {
+	console.log(req.body);
+	const { username, password } = req.body;
+	User.findOne(
+		{ username, password: utils.md5Encryption(password) },
+		(err, doc) => {
+			if (doc) {
+				res.cookie('userid', doc._id);
+				return res.json({ code: 1200, msg: '登陆成功' });
+			} else {
+				return res.json({ code: 1201, msg: '登录失败' });
+			}
+		}
+	);
+});
+
 Router.get('/list', (req, res) => {
 	User.find({}, _filter, (err, doc) => (err ? res.json(err) : res.json(doc)));
 });

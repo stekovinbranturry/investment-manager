@@ -48,6 +48,7 @@ const SignUp = () => {
 			setErrorCheck(false);
 			setPwdErr(false);
 		}
+		// eslint-disable-next-line
 	}, [cfmPassword]);
 
 	useEffect(() => {
