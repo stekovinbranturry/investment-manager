@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const userRouter = require('./user');
 
 const app = express();
@@ -10,6 +11,7 @@ app.on('connection', () => console.log('user login'));
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use('/user', userRouter);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

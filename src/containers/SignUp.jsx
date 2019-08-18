@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 /**
  * Material-UI
  */
@@ -18,23 +19,53 @@ import SignUpStyle from '../style/SignUpStyle';
 
 const SignUp = () => {
 	const classes = SignUpStyle();
+
+	/**
+	 * Input hooks
+	 */
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [cfmPassword, setCfmPassword] = useState('');
+	/**
+	 * Error hooks
+	 */
 	const [errorCheck, setErrorCheck] = useState(false);
 	const [pwdErr, setPwdErr] = useState(false);
 	const [usernameErr, setUsernameErr] = useState(false);
+	/**
+	 * Redirect hook
+	 */
+	const [redirectPath, setRedirectPath] = useState('');
 
 	useEffect(() => {
 		if (password !== cfmPassword) {
+			setErrorCheck(true);
 			setPwdErr(true);
 		}
 		if (password === cfmPassword) {
+			setErrorCheck(false);
 			setPwdErr(false);
 		}
-	}, [password, cfmPassword]);
+	}, [cfmPassword]);
+
+	useEffect(() => {
+		axios
+			.post('/user/username', {
+				username
+			})
+			.then(res => {
+				if (res.status === 200 && res.data.code === 1101) {
+					setErrorCheck(true);
+					setUsernameErr(true);
+				} else {
+					setErrorCheck(false);
+					setUsernameErr(false);
+				}
+			})
+			.catch(err => console.log(err));
+	}, [username]);
 
 	const handleSignUp = e => {
 		e.preventDefault();
@@ -43,6 +74,7 @@ const SignUp = () => {
 			return;
 		}
 		if (password !== cfmPassword) {
+			setErrorCheck(true);
 			setPwdErr(true);
 			return;
 		}
@@ -50,14 +82,15 @@ const SignUp = () => {
 		const registerInfo = { firstName, lastName, username, password };
 
 		axios
-			.post('/user/register', registerInfo)
+			.post('/user/signup', registerInfo)
 			.then(res => {
 				if (res.status === 200 && res.data.code === 1001) {
-					setUsernameErr(res.data.msg);
+					setUsernameErr(true);
 				}
 				if (res.status === 200 && res.data.code === 1000) {
 					console.log('注册成功');
 					console.log(res.data.doc);
+					setRedirectPath('/dashboard');
 				}
 			})
 			.catch(err => console.log(err));
@@ -65,6 +98,7 @@ const SignUp = () => {
 
 	return (
 		<Container component='main' maxWidth='xs'>
+			{redirectPath ? <Redirect to={redirectPath} /> : null}
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}>
@@ -99,7 +133,7 @@ const SignUp = () => {
 								fullWidth
 								id='firstName'
 								label='名'
-								error={errorCheck && (!firstName || usernameErr)}
+								error={errorCheck && !firstName}
 								value={firstName}
 								onChange={e => setFirstName(e.target.value)}
 							/>
@@ -121,7 +155,7 @@ const SignUp = () => {
 								name='username'
 								autoComplete='username'
 								type='username'
-								error={errorCheck && !username}
+								error={errorCheck && (!username || usernameErr)}
 								value={username}
 								onChange={e => setUsername(e.target.value)}
 							/>
@@ -176,7 +210,7 @@ const SignUp = () => {
 					</Button>
 					<Grid container justify='flex-end'>
 						<Grid item>
-							<Link href='#' variant='body2'>
+							<Link variant='body2' component={RouterLink} to='/signin'>
 								已经有账号了？请登录
 							</Link>
 						</Grid>
