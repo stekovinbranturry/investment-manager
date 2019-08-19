@@ -5,22 +5,32 @@ import clsx from 'clsx';
 /**
  * Material-UI
  */
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
+import {
+	CssBaseline,
+	Drawer,
+	AppBar,
+	Toolbar,
+	List,
+	Typography,
+	Divider,
+	IconButton,
+	Container,
+	Grid,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Badge
+} from '@material-ui/core';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Grid from '@material-ui/core/Grid';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PeopleIcon from '@material-ui/icons/People';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 /**
  * Components
  */
-import { ListItems } from '../components/ListItems.jsx';
 import GoodsCard from '../components/GoodsCard.jsx';
 import DashBoardStyle from '../style/DashBoardStyle';
 import StoreContext from '../stores';
@@ -36,9 +46,17 @@ const Dashboard = () => {
 		}
 		// eslint-disable-next-line
 	}, []);
-	console.log(toJS(goods));
 
+	const [allCars, carsCashBack, carsNotCashBack, goodsInfo, userInfo] = [
+		'allCars',
+		'carsCashBack',
+		'carsNotCashBack',
+		'goodsInfo',
+		'userInfo'
+	];
 	const [open, setOpen] = useState(false);
+	const [drawer, setDrawer] = useState(allCars);
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -75,6 +93,12 @@ const Dashboard = () => {
 					>
 						Dashboard
 					</Typography>
+					<IconButton color='inherit'>
+						<Badge color='secondary'>
+							<AddCircleOutlineIcon />
+						</Badge>
+						<span>添加</span>
+					</IconButton>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -90,14 +114,51 @@ const Dashboard = () => {
 					</IconButton>
 				</div>
 				<Divider />
-				<List>{ListItems}</List>
+				<List>
+					<ListItem button onClick={() => setDrawer(allCars)}>
+						<ListItemIcon>
+							<DashboardIcon />
+						</ListItemIcon>
+						<ListItemText primary='全部车辆' />
+					</ListItem>
+					<ListItem button onClick={() => setDrawer(carsCashBack)}>
+						<ListItemIcon>
+							<DashboardIcon />
+						</ListItemIcon>
+						<ListItemText primary='已回款' />
+					</ListItem>
+					<ListItem button onClick={() => setDrawer(carsNotCashBack)}>
+						<ListItemIcon>
+							<DashboardIcon />
+						</ListItemIcon>
+						<ListItemText primary='未回款' />
+					</ListItem>
+					<ListItem button onClick={() => setDrawer(goodsInfo)}>
+						<ListItemIcon>
+							<ShoppingCartIcon />
+						</ListItemIcon>
+						<ListItemText primary='车辆信息' />
+					</ListItem>
+					<ListItem button onClick={() => setDrawer(userInfo)}>
+						<ListItemIcon>
+							<PeopleIcon />
+						</ListItemIcon>
+						<ListItemText primary='我的' />
+					</ListItem>
+				</List>
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='lg' className={classes.container}>
-					<Grid container spacing={2}>
-						<GoodsCard goods={toJS(goods)} />
-					</Grid>
+					{drawer === allCars && <div>AllCars</div>}
+					{drawer === carsCashBack && <div>CarsCashBack</div>}
+					{drawer === carsNotCashBack && <div>CarsNotCashBack</div>}
+					{drawer === goodsInfo && (
+						<Grid container spacing={2}>
+							<GoodsCard goods={toJS(goods)} />
+						</Grid>
+					)}
+					{drawer === userInfo && <div>My</div>}
 				</Container>
 			</main>
 		</div>

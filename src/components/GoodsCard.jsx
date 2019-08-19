@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 /**
  * Material-UI
  */
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
+import {
+	Typography,
+	Card,
+	CardActionArea,
+	CardContent,
+	CardMedia,
+	Grid
+} from '@material-ui/core';
 
 import DashBoardStyle from '../style/DashBoardStyle';
 
