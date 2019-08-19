@@ -12,9 +12,9 @@ const models = {
 		password: { type: String, required: true },
 		cars: { type: Array }
 	},
-	car: {
+	goods: {
 		name: { type: String, required: true },
-		day: { type: String, required: true },
+		day: { type: Number, required: true },
 		rate: { type: Number, required: true }
 	}
 };

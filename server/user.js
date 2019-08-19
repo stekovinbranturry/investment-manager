@@ -88,7 +88,13 @@ Router.post('/signin', (req, res) => {
 });
 
 Router.get('/list', (req, res) => {
-	User.find({}, _filter, (err, doc) => (err ? res.json(err) : res.json(doc)));
+	console.log(req.query);
+	const condition = req.query ? { ...req.query } : {};
+	User.find(condition, _filter, (err, doc) =>
+		err
+			? res.json({ code: 1301, msg: '请求失败' })
+			: res.json({ code: 1300, doc })
+	);
 });
 
 module.exports = Router;

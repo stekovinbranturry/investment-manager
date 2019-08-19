@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
+/**
+ * Material-UI
+ */
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,16 +14,31 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Grid from '@material-ui/core/Grid';
+/**
+ * Components
+ */
 import { ListItems } from '../components/ListItems.jsx';
-
+import GoodsCard from '../components/GoodsCard.jsx';
 import DashBoardStyle from '../style/DashBoardStyle';
+import StoreContext from '../stores';
 
 const Dashboard = () => {
 	const classes = DashBoardStyle();
-	const [open, setOpen] = React.useState(true);
+	// store
+	const store = useContext(StoreContext);
+	const { user, initUser, goods, initGoods } = store;
+	useEffect(() => {
+		if (goods.length === 0) {
+			initGoods();
+		}
+		// eslint-disable-next-line
+	}, []);
+	console.log(toJS(goods));
+
+	const [open, setOpen] = useState(false);
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -75,8 +95,8 @@ const Dashboard = () => {
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='lg' className={classes.container}>
-					<Grid container spacing={3}>
-						grid
+					<Grid container spacing={2}>
+						<GoodsCard goods={toJS(goods)} />
 					</Grid>
 				</Container>
 			</main>
@@ -84,4 +104,4 @@ const Dashboard = () => {
 	);
 };
 
-export default Dashboard;
+export default observer(Dashboard);

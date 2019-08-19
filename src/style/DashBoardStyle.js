@@ -78,6 +78,9 @@ const DashBoardStyle = makeStyles(theme => ({
 	},
 	fixedHeight: {
 		height: 240
+	},
+	cardSeperator: {
+		margin: 'auto 1rem'
 	}
 }));
 
