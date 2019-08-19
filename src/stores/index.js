@@ -33,6 +33,17 @@ class Store {
 			.catch(err => console.log(err));
 	};
 
+	@action addNewItem = payload => {
+		axios
+			.post('/user/add', payload)
+			.then(res => {
+				if (res.status === 200 && res.data.code === 1400) {
+					this.ownedCars = [...this.ownedCars, payload];
+				}
+			})
+			.catch(err => console.log(err));
+	};
+
 	/**
 	 * Goods
 	 */
@@ -42,6 +53,7 @@ class Store {
 		toJS(this.goods).forEach(item => (list = [...list, item.name]));
 		return list;
 	}
+
 	@action initGoods = () => {
 		axios
 			.get('/goods/list')

@@ -40,7 +40,7 @@ const Dashboard = () => {
 	const classes = DashBoardStyle();
 	// store
 	const store = useContext(StoreContext);
-	const { user, initUser, goods, initGoods, openAddNew } = store;
+	const { user, ownedCars, initUser, goods, initGoods, openAddNew } = store;
 	const { firstName, lastName } = toJS(user);
 	useEffect(() => {
 		if (goods.length === 0) {
@@ -189,7 +189,13 @@ const Dashboard = () => {
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='lg' className={classes.container}>
-					{isAllCars && <div>AllCars</div>}
+					{isAllCars && (
+						<div>
+							{toJS(ownedCars).map(item => (
+								<div>{item.carType}</div>
+							))}
+						</div>
+					)}
 					{isCarsCashBack && <div>CarsCashBack</div>}
 					{isCarsNotCashBack && <div>CarsNotCashBack</div>}
 					{isGoodsInfo && (

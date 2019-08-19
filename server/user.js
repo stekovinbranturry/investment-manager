@@ -98,4 +98,17 @@ Router.get('/list', (req, res) => {
 	);
 });
 
+Router.post('/add', (req, res) => {
+	console.log(req.body);
+	const { userid } = req.cookies;
+	User.findOneAndUpdate(
+		{ _id: userid },
+		{ $push: { cars: req.body } },
+		(err, doc) =>
+			doc
+				? res.json({ code: 1400, msg: '添加成功' })
+				: res.json({ code: 1401, msg: '添加失败' })
+	);
+});
+
 module.exports = Router;
