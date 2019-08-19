@@ -1,8 +1,6 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 import { createContext } from 'react';
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
-
 class Store {
 	/**
 	 * User
@@ -11,17 +9,25 @@ class Store {
 		_id: '',
 		firstName: '',
 		lastName: '',
-		username: '',
-		cars: []
+		username: ''
 	};
 
+	@observable ownedCars = [];
+
 	@action initUser = () => {
-		const { userid } = useCookies(['userid'])[0];
 		axios
-			.get(`/user/list?_id=${userid}`)
+			.post('/user/auth')
 			.then(res => {
-				if (res.status === 200 && res.data.code === 1300) {
-					this.user = { ...this.user, ...res.data.doc };
+				if (res.status === 200 && res.data.code === 0) {
+					const { _id, firstName, lastName, username, cars } = res.data.doc;
+					this.user = {
+						...this.user,
+						...{ _id, firstName, lastName, username }
+					};
+					this.ownedCars = [...this.ownedCars, ...cars];
+				}
+				if (res.status === 200 && res.data.code === 1) {
+					console.log(res.data.msg);
 				}
 			})
 			.catch(err => console.log(err));
@@ -31,7 +37,11 @@ class Store {
 	 * Goods
 	 */
 	@observable goods = [];
-
+	@computed get goodsNameList() {
+		let list = [];
+		toJS(this.goods).forEach(item => (list = [...list, item.name]));
+		return list;
+	}
 	@action initGoods = () => {
 		axios
 			.get('/goods/list')
@@ -41,6 +51,17 @@ class Store {
 				}
 			})
 			.catch(err => console.log(err));
+	};
+
+	/**
+	 * AddNew dialog
+	 */
+	@observable isAddNewOpen = 0;
+	@action openAddNew = () => {
+		this.isAddNewOpen = 1;
+	};
+	@action closeAddNew = () => {
+		this.isAddNewOpen = 0;
 	};
 }
 

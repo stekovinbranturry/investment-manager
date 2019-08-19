@@ -15,7 +15,7 @@ Router.post('/auth', (req, res) => {
 	if (!userid) {
 		return res.json({ code: 1 });
 	} else {
-		User.find({ _id: userid }, _filter, (err, doc) =>
+		User.findOne({ _id: userid }, _filter, (err, doc) =>
 			doc
 				? res.json({ code: 0, doc })
 				: res.json({ code: 1, msg: 'userid不存在' })
@@ -59,7 +59,6 @@ Router.post('/signup', (req, res) => {
  * Verify username
  */
 Router.post('/username', (req, res) => {
-	console.log(req.body);
 	const { username } = req.body;
 	User.findOne({ username }, (err, doc) =>
 		doc
@@ -76,10 +75,12 @@ Router.post('/signin', (req, res) => {
 	const { username, password } = req.body;
 	User.findOne(
 		{ username, password: utils.md5Encryption(password) },
+		_filter,
 		(err, doc) => {
 			if (doc) {
+				console.log(doc._id);
 				res.cookie('userid', doc._id);
-				return res.json({ code: 1200, msg: '登陆成功' });
+				return res.json({ code: 1200, doc });
 			} else {
 				return res.json({ code: 1201, msg: '登录失败' });
 			}

@@ -32,6 +32,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
  * Components
  */
 import GoodsCard from '../components/GoodsCard.jsx';
+import AddNew from '../components/AddNew.jsx';
 import DashBoardStyle from '../style/DashBoardStyle';
 import StoreContext from '../stores';
 
@@ -39,10 +40,14 @@ const Dashboard = () => {
 	const classes = DashBoardStyle();
 	// store
 	const store = useContext(StoreContext);
-	const { user, initUser, goods, initGoods } = store;
+	const { user, initUser, goods, initGoods, openAddNew } = store;
+	const { firstName, lastName } = toJS(user);
 	useEffect(() => {
 		if (goods.length === 0) {
 			initGoods();
+		}
+		if (!toJS(user)._id) {
+			initUser();
 		}
 		// eslint-disable-next-line
 	}, []);
@@ -54,22 +59,36 @@ const Dashboard = () => {
 		'goodsInfo',
 		'userInfo'
 	];
-	const [open, setOpen] = useState(false);
+	const [openListItem, setOpenListItem] = useState(false);
 	const [drawer, setDrawer] = useState(allCars);
+	const [
+		isAllCars,
+		isCarsCashBack,
+		isCarsNotCashBack,
+		isGoodsInfo,
+		isUserInfo
+	] = [
+		drawer === allCars,
+		drawer === carsCashBack,
+		drawer === carsNotCashBack,
+		drawer === goodsInfo,
+		drawer === userInfo
+	];
 
 	const handleDrawerOpen = () => {
-		setOpen(true);
+		setOpenListItem(true);
 	};
 	const handleDrawerClose = () => {
-		setOpen(false);
+		setOpenListItem(false);
 	};
 
 	return (
 		<div className={classes.root}>
+			<AddNew />
 			<CssBaseline />
 			<AppBar
 				position='absolute'
-				className={clsx(classes.appBar, open && classes.appBarShift)}
+				className={clsx(classes.appBar, openListItem && classes.appBarShift)}
 			>
 				<Toolbar className={classes.toolbar}>
 					<IconButton
@@ -79,7 +98,7 @@ const Dashboard = () => {
 						onClick={handleDrawerOpen}
 						className={clsx(
 							classes.menuButton,
-							open && classes.menuButtonHidden
+							openListItem && classes.menuButtonHidden
 						)}
 					>
 						<MenuIcon />
@@ -91,9 +110,9 @@ const Dashboard = () => {
 						noWrap
 						className={classes.title}
 					>
-						Dashboard
+						{`${lastName} ${firstName}的Dashboard`}
 					</Typography>
-					<IconButton color='inherit'>
+					<IconButton color='inherit' onClick={() => openAddNew()}>
 						<Badge color='secondary'>
 							<AddCircleOutlineIcon />
 						</Badge>
@@ -104,9 +123,12 @@ const Dashboard = () => {
 			<Drawer
 				variant='permanent'
 				classes={{
-					paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+					paper: clsx(
+						classes.drawerPaper,
+						!openListItem && classes.drawerPaperClose
+					)
 				}}
-				open={open}
+				open={openListItem}
 			>
 				<div className={classes.toolbarIcon}>
 					<IconButton onClick={handleDrawerClose}>
@@ -117,48 +139,65 @@ const Dashboard = () => {
 				<List>
 					<ListItem button onClick={() => setDrawer(allCars)}>
 						<ListItemIcon>
-							<DashboardIcon />
+							<DashboardIcon color={isAllCars ? 'secondary' : 'inherit'} />
 						</ListItemIcon>
-						<ListItemText primary='全部车辆' />
+						<ListItemText
+							className={isAllCars ? classes.selectedDrawer : 'noclass'}
+							primary='全部车辆'
+						/>
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(carsCashBack)}>
 						<ListItemIcon>
-							<DashboardIcon />
+							<DashboardIcon color={isCarsCashBack ? 'secondary' : 'inherit'} />
 						</ListItemIcon>
-						<ListItemText primary='已回款' />
+						<ListItemText
+							className={isCarsCashBack ? classes.selectedDrawer : 'noclass'}
+							primary='已回款'
+						/>
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(carsNotCashBack)}>
 						<ListItemIcon>
-							<DashboardIcon />
+							<DashboardIcon
+								color={isCarsNotCashBack ? 'secondary' : 'inherit'}
+							/>
 						</ListItemIcon>
-						<ListItemText primary='未回款' />
+						<ListItemText
+							className={isCarsNotCashBack ? classes.selectedDrawer : 'noclass'}
+							primary='未回款'
+						/>
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(goodsInfo)}>
 						<ListItemIcon>
-							<ShoppingCartIcon />
+							<ShoppingCartIcon color={isGoodsInfo ? 'secondary' : 'inherit'} />
 						</ListItemIcon>
-						<ListItemText primary='车辆信息' />
+						<ListItemText
+							className={isGoodsInfo ? classes.selectedDrawer : 'noclass'}
+							primary='车辆信息'
+						/>
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(userInfo)}>
 						<ListItemIcon>
-							<PeopleIcon />
+							<PeopleIcon color={isUserInfo ? 'secondary' : 'inherit'} />
 						</ListItemIcon>
-						<ListItemText primary='我的' />
+						<ListItemText
+							className={isUserInfo ? classes.selectedDrawer : 'noclass'}
+							primary='我的'
+						/>
 					</ListItem>
 				</List>
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='lg' className={classes.container}>
-					{drawer === allCars && <div>AllCars</div>}
-					{drawer === carsCashBack && <div>CarsCashBack</div>}
-					{drawer === carsNotCashBack && <div>CarsNotCashBack</div>}
-					{drawer === goodsInfo && (
+					{isAllCars && <div>AllCars</div>}
+					{isCarsCashBack && <div>CarsCashBack</div>}
+					{isCarsNotCashBack && <div>CarsNotCashBack</div>}
+					{isGoodsInfo && (
 						<Grid container spacing={2}>
 							<GoodsCard goods={toJS(goods)} />
 						</Grid>
 					)}
-					{drawer === userInfo && <div>My</div>}
+					{isUserInfo && <div>My</div>}
 				</Container>
 			</main>
 		</div>

@@ -81,6 +81,13 @@ const DashBoardStyle = makeStyles(theme => ({
 	},
 	cardSeperator: {
 		margin: 'auto 1rem'
+	},
+	selectedDrawer: {
+		color: '#f50057'
+	},
+	dialogInput: {
+		width: '100%',
+		marginBottom: '20px'
 	}
 }));
 
