@@ -63,7 +63,11 @@ const RecordCard = ({ cars }) => {
 								align='right'
 								className={classes.tableCell}
 							>
-								{isCashBack === 0 ? '未回款' : '已回款'}
+								{isCashBack === 0 ? (
+									<span style={{ color: '#f4511e' }}>未回款</span>
+								) : (
+									<span style={{ color: '#43a047' }}>已回款</span>
+								)}
 							</TableCell>
 						</TableRow>
 					</TableHead>
