@@ -80,17 +80,17 @@ const DashBoardStyle = makeStyles(theme => ({
 		height: 240
 	},
 	cardSeperator: {
-		margin: 'auto 1rem'
+		margin: theme.spacing(0, 2)
 	},
 	selectedDrawer: {
 		color: '#f50057'
 	},
 	dialogInput: {
 		width: '100%',
-		marginBottom: '20px'
+		marginBottom: theme.spacing(2)
 	},
 	tableCell: {
-		padding: '.4rem .2rem'
+		padding: theme.spacing(1, 0.5)
 	}
 }));
 
