@@ -31,6 +31,10 @@ class Store {
 			item => dateFormat(item.sellDate) === dateFormat(new Date())
 		);
 	}
+	@computed get totalNumber() {
+		return this.ownedCars.length;
+	}
+
 	@action initUser = () => {
 		axios
 			.post('/user/auth')

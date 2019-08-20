@@ -5,13 +5,12 @@ import SignOut from '../../components/SignOut.jsx';
 
 const UserInfo = () => {
 	const store = useContext(StoreContext);
-	const { user } = store;
-	const { firstName, lastName, username } = user;
+	const { user, totalNumber } = store;
+	const { username } = user;
 	return (
 		<div>
-			<p>{lastName}</p>
-			<p>{firstName}</p>
-			<p>{username}</p>
+			<p>Welcome {username}</p>
+			<p>购买车辆总数：{totalNumber}</p>
 			<SignOut />
 		</div>
 	);
