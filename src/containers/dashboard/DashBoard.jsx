@@ -48,7 +48,6 @@ const Dashboard = () => {
 	// store
 	const store = useContext(StoreContext);
 	const { user, initUser, goods, initGoods, openAddNew } = store;
-	const { firstName, lastName } = toJS(user);
 	useEffect(() => {
 		if (goods.length === 0) {
 			initGoods();
@@ -92,6 +91,25 @@ const Dashboard = () => {
 		setOpenListItem(false);
 	};
 
+	const headerTitle = title => {
+		switch (title) {
+			case allCars:
+				return '全部车辆';
+			case carsCashBack:
+				return '已回款';
+			case carsNotCashBack:
+				return '未回款';
+			case today:
+				return '今日';
+			case goodsInfo:
+				return '车辆信息';
+			case userInfo:
+				return '用户中心';
+			default:
+				return 'Dashboard';
+		}
+	};
+
 	return (
 		<div className={classes.root}>
 			<AddNew />
@@ -115,17 +133,20 @@ const Dashboard = () => {
 					</IconButton>
 					<Typography
 						variant='body1'
-						component='h4'
+						component='h3'
 						color='inherit'
 						noWrap
 						className={classes.title}
 					>
-						{`${lastName} ${firstName}`}'s Dashboard
+						{headerTitle(drawer)}
 					</Typography>
 					<IconButton color='inherit' edge='end' onClick={() => openAddNew()}>
 						<Badge color='secondary'>
 							<AddCircleOutlineIcon />
 						</Badge>
+						<Typography variant='body1' component='h3' color='inherit' noWrap>
+							添加
+						</Typography>
 					</IconButton>
 				</Toolbar>
 			</AppBar>
