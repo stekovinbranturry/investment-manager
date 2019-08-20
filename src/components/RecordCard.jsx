@@ -40,28 +40,28 @@ const RecordCard = ({ cars }) => {
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								<img style={{ height: '1.5rem' }} src={img} alt={carType} />
 							</TableCell>
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								{carType}
 							</TableCell>
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								收益:￥{profit}
 							</TableCell>
 							<TableCell
 								size='small'
 								align='right'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								{isCashBack === 0 ? (
 									<span style={{ color: '#f4511e' }}>未回款</span>
@@ -76,28 +76,28 @@ const RecordCard = ({ cars }) => {
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								买入:
 							</TableCell>
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								<PaymentIcon type={buyMethod} />
 							</TableCell>
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								￥{buyPrice}
 							</TableCell>
 							<TableCell
 								size='small'
 								align='right'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								{buyDate}
 							</TableCell>
@@ -108,28 +108,28 @@ const RecordCard = ({ cars }) => {
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								卖出:
 							</TableCell>
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								<PaymentIcon type={sellMethod} />
 							</TableCell>
 							<TableCell
 								size='small'
 								align='center'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								￥{sellPrice}
 							</TableCell>
 							<TableCell
 								size='small'
 								align='right'
-								className={classes.tableCell}
+								className={classes.sizeSmall}
 							>
 								{sellDate}
 							</TableCell>

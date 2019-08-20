@@ -89,7 +89,7 @@ const DashBoardStyle = makeStyles(theme => ({
 		width: '100%',
 		marginBottom: theme.spacing(2)
 	},
-	tableCell: {
+	sizeSmall: {
 		padding: theme.spacing(1, 0.5)
 	}
 }));
