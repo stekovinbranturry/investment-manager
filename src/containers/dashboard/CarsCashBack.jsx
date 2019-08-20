@@ -2,18 +2,18 @@ import React, { useContext } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import StoreContext from '../../stores';
-import uuid from 'uuid/v4';
+import { Grid } from '@material-ui/core';
+import RecordCard from '../../components/RecordCard.jsx';
 
 const CarsCashBack = () => {
 	const store = useContext(StoreContext);
 	const { carsCashBack } = store;
 	return (
-		<div>
-			cashback
+		<Grid container spacing={1}>
 			{toJS(carsCashBack).map(item => (
-				<div key={uuid()}>{item.carType}</div>
+				<RecordCard key={item.itemID} cars={item} />
 			))}
-		</div>
+		</Grid>
 	);
 };
 

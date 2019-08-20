@@ -114,19 +114,18 @@ const Dashboard = () => {
 						<MenuIcon />
 					</IconButton>
 					<Typography
-						component='h1'
+						component='body1'
 						variant='h6'
 						color='inherit'
 						noWrap
 						className={classes.title}
 					>
-						{`${lastName} ${firstName}`}
+						{`${lastName} ${firstName}`}'s Dashboard
 					</Typography>
-					<IconButton color='inherit' onClick={() => openAddNew()}>
+					<IconButton color='inherit' edge='end' onClick={() => openAddNew()}>
 						<Badge color='secondary'>
 							<AddCircleOutlineIcon />
 						</Badge>
-						<span>添加</span>
 					</IconButton>
 				</Toolbar>
 			</AppBar>
@@ -209,7 +208,7 @@ const Dashboard = () => {
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
-				<Container maxWidth='lg' className={classes.container}>
+				<Container maxWidth={false} className={classes.container}>
 					{isAllCars && <AllCars />}
 					{isCarsCashBack && <CarsCashBack />}
 					{isCarsNotCashBack && <CarsNotCashBack />}

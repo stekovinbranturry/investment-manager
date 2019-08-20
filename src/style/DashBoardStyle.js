@@ -32,7 +32,7 @@ const DashBoardStyle = makeStyles(theme => ({
 		})
 	},
 	menuButton: {
-		marginRight: 36
+		marginRight: 8
 	},
 	menuButtonHidden: {
 		display: 'none'
@@ -88,6 +88,9 @@ const DashBoardStyle = makeStyles(theme => ({
 	dialogInput: {
 		width: '100%',
 		marginBottom: '20px'
+	},
+	tableCell: {
+		padding: '.4rem .2rem'
 	}
 }));
 
