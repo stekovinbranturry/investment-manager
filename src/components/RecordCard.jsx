@@ -32,7 +32,7 @@ const RecordCard = ({ cars }) => {
 	const img = require(`../image/${carType}.jpg`);
 
 	return (
-		<Grid key={itemID} item xs={12} sm={6} md={4} lg={3}>
+		<Grid key={itemID} item xs={12} sm={12} md={4} lg={3}>
 			<Card>
 				<Table size='small'>
 					<TableHead>
