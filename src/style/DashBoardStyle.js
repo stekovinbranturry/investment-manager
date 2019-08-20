@@ -32,7 +32,7 @@ const DashBoardStyle = makeStyles(theme => ({
 		})
 	},
 	menuButton: {
-		marginRight: 8
+		marginRight: 24
 	},
 	menuButtonHidden: {
 		display: 'none'

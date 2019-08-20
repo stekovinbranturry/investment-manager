@@ -114,8 +114,8 @@ const Dashboard = () => {
 						<MenuIcon />
 					</IconButton>
 					<Typography
-						component='body1'
-						variant='h6'
+						variant='body1'
+						component='h4'
 						color='inherit'
 						noWrap
 						className={classes.title}
