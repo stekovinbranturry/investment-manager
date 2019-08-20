@@ -15,7 +15,6 @@ import {
 	Divider,
 	IconButton,
 	Container,
-	Grid,
 	ListItem,
 	ListItemIcon,
 	ListItemText,
@@ -25,22 +24,30 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import TodayIcon from '@material-ui/icons/Today';
+import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 /**
  * Components
  */
-import GoodsCard from '../components/GoodsCard.jsx';
-import AddNew from '../components/AddNew.jsx';
-import DashBoardStyle from '../style/DashBoardStyle';
-import StoreContext from '../stores';
+import AddNew from './AddNew.jsx';
+import AllCars from './AllCars.jsx';
+import CarsCashBack from './CarsCashBack.jsx';
+import CarsNotCashBack from './CarsNotCashBack.jsx';
+import Today from './Today.jsx';
+import GoodsInfo from './GoodsInfo.jsx';
+import UserInfo from './UserInfo.jsx';
+import DashBoardStyle from '../../style/DashBoardStyle';
+import StoreContext from '../../stores';
 
 const Dashboard = () => {
 	const classes = DashBoardStyle();
 	// store
 	const store = useContext(StoreContext);
-	const { user, ownedCars, initUser, goods, initGoods, openAddNew } = store;
+	const { user, initUser, goods, initGoods, openAddNew } = store;
 	const { firstName, lastName } = toJS(user);
 	useEffect(() => {
 		if (goods.length === 0) {
@@ -52,10 +59,11 @@ const Dashboard = () => {
 		// eslint-disable-next-line
 	}, []);
 
-	const [allCars, carsCashBack, carsNotCashBack, goodsInfo, userInfo] = [
+	const [allCars, carsCashBack, carsNotCashBack, today, goodsInfo, userInfo] = [
 		'allCars',
 		'carsCashBack',
 		'carsNotCashBack',
+		'today',
 		'goodsInfo',
 		'userInfo'
 	];
@@ -65,12 +73,14 @@ const Dashboard = () => {
 		isAllCars,
 		isCarsCashBack,
 		isCarsNotCashBack,
+		isToday,
 		isGoodsInfo,
 		isUserInfo
 	] = [
 		drawer === allCars,
 		drawer === carsCashBack,
 		drawer === carsNotCashBack,
+		drawer === today,
 		drawer === goodsInfo,
 		drawer === userInfo
 	];
@@ -110,7 +120,7 @@ const Dashboard = () => {
 						noWrap
 						className={classes.title}
 					>
-						{`${lastName} ${firstName}的Dashboard`}
+						{`${lastName} ${firstName}`}
 					</Typography>
 					<IconButton color='inherit' onClick={() => openAddNew()}>
 						<Badge color='secondary'>
@@ -148,7 +158,7 @@ const Dashboard = () => {
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(carsCashBack)}>
 						<ListItemIcon>
-							<DashboardIcon color={isCarsCashBack ? 'secondary' : 'inherit'} />
+							<CheckBoxIcon color={isCarsCashBack ? 'secondary' : 'inherit'} />
 						</ListItemIcon>
 						<ListItemText
 							className={isCarsCashBack ? classes.selectedDrawer : 'noclass'}
@@ -157,7 +167,7 @@ const Dashboard = () => {
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(carsNotCashBack)}>
 						<ListItemIcon>
-							<DashboardIcon
+							<CheckBoxOutlineBlankIcon
 								color={isCarsNotCashBack ? 'secondary' : 'inherit'}
 							/>
 						</ListItemIcon>
@@ -166,9 +176,20 @@ const Dashboard = () => {
 							primary='未回款'
 						/>
 					</ListItem>
+					<ListItem button onClick={() => setDrawer(today)}>
+						<ListItemIcon>
+							<TodayIcon color={isToday ? 'secondary' : 'inherit'} />
+						</ListItemIcon>
+						<ListItemText
+							className={isToday ? classes.selectedDrawer : 'noclass'}
+							primary='今日'
+						/>
+					</ListItem>
 					<ListItem button onClick={() => setDrawer(goodsInfo)}>
 						<ListItemIcon>
-							<ShoppingCartIcon color={isGoodsInfo ? 'secondary' : 'inherit'} />
+							<DirectionsCarIcon
+								color={isGoodsInfo ? 'secondary' : 'inherit'}
+							/>
 						</ListItemIcon>
 						<ListItemText
 							className={isGoodsInfo ? classes.selectedDrawer : 'noclass'}
@@ -177,11 +198,11 @@ const Dashboard = () => {
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(userInfo)}>
 						<ListItemIcon>
-							<PeopleIcon color={isUserInfo ? 'secondary' : 'inherit'} />
+							<AccountBoxIcon color={isUserInfo ? 'secondary' : 'inherit'} />
 						</ListItemIcon>
 						<ListItemText
 							className={isUserInfo ? classes.selectedDrawer : 'noclass'}
-							primary='我的'
+							primary='用户中心'
 						/>
 					</ListItem>
 				</List>
@@ -189,21 +210,12 @@ const Dashboard = () => {
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='lg' className={classes.container}>
-					{isAllCars && (
-						<div>
-							{toJS(ownedCars).map(item => (
-								<div>{item.carType}</div>
-							))}
-						</div>
-					)}
-					{isCarsCashBack && <div>CarsCashBack</div>}
-					{isCarsNotCashBack && <div>CarsNotCashBack</div>}
-					{isGoodsInfo && (
-						<Grid container spacing={2}>
-							<GoodsCard goods={toJS(goods)} />
-						</Grid>
-					)}
-					{isUserInfo && <div>My</div>}
+					{isAllCars && <AllCars />}
+					{isCarsCashBack && <CarsCashBack />}
+					{isCarsNotCashBack && <CarsNotCashBack />}
+					{isToday && <Today />}
+					{isGoodsInfo && <GoodsInfo />}
+					{isUserInfo && <UserInfo />}
 				</Container>
 			</main>
 		</div>

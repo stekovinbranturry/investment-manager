@@ -1,6 +1,7 @@
 import { observable, action, computed, toJS } from 'mobx';
 import { createContext } from 'react';
 import axios from 'axios';
+import { dateFormat } from '../utils/date';
 class Store {
 	/**
 	 * User
@@ -14,6 +15,22 @@ class Store {
 
 	@observable ownedCars = [];
 
+	@computed get carsCashBack() {
+		return toJS(this.ownedCars).filter(item => item.isCashBack === 1);
+	}
+	@computed get carsNotCashBack() {
+		return toJS(this.ownedCars).filter(item => item.isCashBack === 0);
+	}
+	@computed get todayBuy() {
+		return toJS(this.ownedCars).filter(
+			item => dateFormat(item.buyDate) === dateFormat(new Date())
+		);
+	}
+	@computed get todaySell() {
+		return toJS(this.ownedCars).filter(
+			item => dateFormat(item.sellDate) === dateFormat(new Date())
+		);
+	}
 	@action initUser = () => {
 		axios
 			.post('/user/auth')

@@ -12,15 +12,18 @@ import {
 	DialogTitle,
 	InputLabel,
 	FormControl,
-	NativeSelect
+	NativeSelect,
+	useMediaQuery
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
-import StoreContext from '../stores';
-import DashBoardStyle from '../style/DashBoardStyle';
-import { getSellDate } from '../utils/getSellDate';
+import StoreContext from '../../stores';
+import DashBoardStyle from '../../style/DashBoardStyle';
+import { dateFormat, getSellDate } from '../../utils/date';
 
 const AddNew = () => {
 	const classes = DashBoardStyle();
+	const fullScreen = useMediaQuery(useTheme().breakpoints.down('sm'));
 	const store = useContext(StoreContext);
 	const { isAddNewOpen, closeAddNew, goods, goodsNameList, addNewItem } = store;
 	const [carType, setCarType] = useState('');
@@ -54,8 +57,8 @@ const AddNew = () => {
 			itemID: uuid(),
 			carType,
 			buyPrice: parseFloat(buyPrice),
-			buyMethod: buyMethod,
-			buyDate: buyDate,
+			buyMethod,
+			buyDate: dateFormat(buyDate),
 			isCashBack,
 			sellPrice: parseFloat(sellPrice),
 			sellMethod,
@@ -68,9 +71,11 @@ const AddNew = () => {
 
 	return (
 		<Dialog
+			fullScreen={fullScreen}
 			open={isAddNewOpen === 1}
 			onClose={handleClose}
 			aria-labelledby='form-dialog-title'
+			className={classes.dialog}
 		>
 			<DialogTitle id='form-dialog-title'>添加新的购买记录</DialogTitle>
 			<DialogContent>

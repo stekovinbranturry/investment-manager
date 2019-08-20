@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import SignUpStyle from '../style/SignUpStyle';
+import SignUpStyle from '../../style/SignUpStyle';
 
 const SignUp = () => {
 	const classes = SignUpStyle();

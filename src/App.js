@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SignUp from './containers/SignUp.jsx';
-import SignIn from './containers/SignIn.jsx';
-import DashBoard from './containers/DashBoard.jsx';
+import SignUp from './containers/signin/SignUp.jsx';
+import SignIn from './containers/signin/SignIn.jsx';
+import DashBoard from './containers/dashboard/DashBoard.jsx';
 import AuthRouter from './components/AuthRouter.jsx';
 
 function App() {
