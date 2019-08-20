@@ -12,11 +12,11 @@ import {
 	TableHead,
 	TableRow
 } from '@material-ui/core';
-import DashBoardStyle from '../style/DashBoardStyle';
+import TableStyle from '../style/TableStyle';
 import PaymentIcon from './PaymentIcon.jsx';
 
 const RecordCard = ({ cars }) => {
-	const classes = DashBoardStyle();
+	const classes = TableStyle();
 	const {
 		itemID,
 		carType,
