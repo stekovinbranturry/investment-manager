@@ -13,3 +13,9 @@ export const getSellDate = (before, days) => {
 	const after = date.setDate(date.getDate() + days);
 	return dateFormat(after);
 };
+
+export const getYesterday = () => {
+	const today = new Date();
+	const yesterday = new Date(today);
+	return yesterday.setDate(today.getDate() - 1);
+};

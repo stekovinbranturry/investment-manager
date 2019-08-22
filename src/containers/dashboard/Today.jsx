@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import StoreContext from '../../stores';
@@ -7,27 +7,44 @@ import RecordCard from '../../components/RecordCard.jsx';
 
 const Today = () => {
 	const store = useContext(StoreContext);
-	const { todayBuy, todaySell } = store;
+	const { todayBuy, todaySell, expiredCars } = store;
+	const data = [
+		{
+			name: '今日购买:',
+			list: toJS(todayBuy)
+		},
+		{
+			name: '今日回款:',
+			list: toJS(todaySell)
+		},
+		{
+			name: '过期未回款:',
+			list: toJS(expiredCars)
+		}
+	];
 	return (
-		<Grid container spacing={1}>
-			<Grid item>
-				<Typography variant='subtitle1' component='h5'>
-					今日购买:
-				</Typography>
-			</Grid>
-
-			{toJS(todayBuy).map(item => (
-				<RecordCard key={item.itemID} cars={item} />
+		<Fragment>
+			{data.map((item, key) => (
+				<div key={key}>
+					<Grid container spacing={1}>
+						<Grid item>
+							<Typography variant='subtitle1' component='h5'>
+								{item.name}
+							</Typography>
+						</Grid>
+					</Grid>
+					{item.list.length === 0 ? (
+						'无'
+					) : (
+						<Grid container spacing={1}>
+							{item.list.map(item => (
+								<RecordCard key={item.itemID} cars={item} />
+							))}
+						</Grid>
+					)}
+				</div>
 			))}
-			<Grid item>
-				<Typography variant='subtitle1' component='h5'>
-					今日回款:
-				</Typography>
-			</Grid>
-			{toJS(todaySell).map(item => (
-				<RecordCard key={item.itemID} cars={item} />
-			))}
-		</Grid>
+		</Fragment>
 	);
 };
 

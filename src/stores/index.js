@@ -1,7 +1,7 @@
 import { observable, action, computed, toJS } from 'mobx';
 import { createContext } from 'react';
 import axios from 'axios';
-import { dateFormat } from '../utils/date';
+import { dateFormat, getYesterday } from '../utils/date';
 import { sortGoodsArray } from '../utils/sortGoodsArray';
 class Store {
 	/**
@@ -35,6 +35,12 @@ class Store {
 	@computed get todaySell() {
 		return toJS(this.ownedCars).filter(
 			item => dateFormat(item.sellDate) === dateFormat(new Date())
+		);
+	}
+	// 过期未回款
+	@computed get expiredCars() {
+		return toJS(this.carsNotCashBack).filter(
+			item => new Date(item.sellDate) < getYesterday()
 		);
 	}
 	// 购买车辆数量
