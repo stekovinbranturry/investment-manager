@@ -10,6 +10,7 @@ const models = {
 		lastName: { type: String, required: true },
 		username: { type: String, required: true },
 		password: { type: String, required: true },
+		weifen: { type: Number, default: 0 },
 		cars: { type: Array }
 	},
 	goods: {

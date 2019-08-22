@@ -91,6 +91,9 @@ const DashBoardStyle = makeStyles(theme => ({
 	},
 	sizeSmall: {
 		padding: theme.spacing(1, 0.5)
+	},
+	userInfo: {
+		padding: theme.spacing(1, 0)
 	}
 }));
 

@@ -11,7 +11,8 @@ class Store {
 		_id: '',
 		firstName: '',
 		lastName: '',
-		username: ''
+		username: '',
+		weifen: 0
 	};
 
 	@observable ownedCars = [];
@@ -108,14 +109,38 @@ class Store {
 			.post('/user/auth')
 			.then(res => {
 				if (res.status === 200 && res.data.code === 0) {
-					const { _id, firstName, lastName, username, cars } = res.data.doc;
+					const {
+						_id,
+						firstName,
+						lastName,
+						username,
+						weifen,
+						cars
+					} = res.data.doc;
 					this.user = {
 						...this.user,
-						...{ _id, firstName, lastName, username }
+						...{ _id, firstName, lastName, username, weifen }
 					};
 					this.ownedCars = sortGoodsArray([...this.ownedCars, ...cars]);
 				}
 				if (res.status === 200 && res.data.code === 1) {
+					console.log(res.data.msg);
+				}
+			})
+			.catch(err => console.log(err));
+	};
+
+	@action updateUser = payload => {
+		axios
+			.post('user/update-user', payload)
+			.then(res => {
+				if (res.status === 200 && res.data.code === 1500) {
+					this.user = {
+						...this.user,
+						...payload
+					};
+				}
+				if (res.status === 200 && res.data.code === 1501) {
 					console.log(res.data.msg);
 				}
 			})

@@ -111,4 +111,14 @@ Router.post('/add', (req, res) => {
 	);
 });
 
+Router.post('/update-user', (req, res) => {
+	console.log(req.body);
+	const { userid } = req.cookies;
+	User.findByIdAndUpdate({ _id: userid }, req.body, (err, doc) =>
+		doc
+			? res.json({ code: 1500, msg: '更新成功' })
+			: res.json({ code: 1501, msg: '更新失败' })
+	);
+});
+
 module.exports = Router;
