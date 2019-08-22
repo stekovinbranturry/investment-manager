@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import RecordCard from '../../components/RecordCard.jsx';
 import SummaryCard from '../../components/SummaryCard.jsx';
 
@@ -8,6 +8,13 @@ const CarsCommon = ({ summary, carsList }) => {
 		<Fragment>
 			<Grid container spacing={1}>
 				<SummaryCard summary={summary} />
+			</Grid>
+			<Grid container spacing={1}>
+				<Grid item>
+					<Typography variant='subtitle1' component='p'>
+						*点击卡片更新记录
+					</Typography>
+				</Grid>
 			</Grid>
 			<Grid container spacing={1}>
 				{carsList.map(item => (
