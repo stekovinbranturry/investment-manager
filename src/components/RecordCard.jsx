@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react-lite';
 /**
  * Material-UI
  */
@@ -14,8 +15,11 @@ import {
 } from '@material-ui/core';
 import TableStyle from '../style/TableStyle';
 import PaymentIcon from './PaymentIcon.jsx';
+import StoreContext from '../stores';
 
 const RecordCard = ({ cars }) => {
+	const store = useContext(StoreContext);
+	const { openUpdateRecordDialog, updateRecordToUpdate } = store;
 	const classes = TableStyle();
 	const {
 		itemID,
@@ -31,9 +35,13 @@ const RecordCard = ({ cars }) => {
 	} = cars;
 	const img = require(`../image/${carType}.svg`);
 
+	const handleClickCard = () => {
+		updateRecordToUpdate(cars);
+		openUpdateRecordDialog();
+	};
 	return (
 		<Grid key={itemID} item xs={12} sm={6} md={4} lg={3}>
-			<Card>
+			<Card onClick={handleClickCard}>
 				<Table size='small' padding='default'>
 					<TableHead>
 						<TableRow>
@@ -164,4 +172,4 @@ RecordCard.defaultProps = {
 	}
 };
 
-export default RecordCard;
+export default observer(RecordCard);

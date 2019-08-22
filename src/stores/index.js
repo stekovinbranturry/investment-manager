@@ -195,6 +195,45 @@ class Store {
 	@action closeAddNew = () => {
 		this.isAddNewOpen = 0;
 	};
+
+	/**
+	 * UpdateRecord dialog
+	 */
+	@observable isUpdateRecordDialogOpen = 0;
+	@observable recordToUpdate = {};
+
+	@action openUpdateRecordDialog = () => {
+		this.isUpdateRecordDialogOpen = 1;
+	};
+	@action closeUpdateRecordDialog = () => {
+		this.isUpdateRecordDialogOpen = 0;
+	};
+	@action updateRecord = payload => {
+		axios
+			.post('/user/update-car', payload)
+			.then(res => {
+				if ((res.status === 200) & (res.data.code === 1600)) {
+					console.log(res.data.msg);
+					let tmp = [];
+					this.ownedCars.forEach(item => {
+						if (item.itemID === payload.itemID) {
+							tmp = [...tmp, { ...item, ...payload }];
+						} else {
+							tmp = [...tmp, item];
+						}
+					});
+					this.ownedCars = [...tmp];
+				}
+				if ((res.status === 200) & (res.data.code === 1601)) {
+					console.log(res.data.msg);
+				}
+			})
+			.catch(err => console.log(err));
+	};
+
+	@action updateRecordToUpdate = payload => {
+		this.recordToUpdate = { ...this.recordToUpdate, ...payload };
+	};
 }
 
 const StoreContext = createContext(new Store());

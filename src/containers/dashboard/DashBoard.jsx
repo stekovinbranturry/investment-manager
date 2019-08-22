@@ -34,6 +34,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
  * Components
  */
 import AddNew from './AddNew.jsx';
+import UpdateRecordDialog from '../../components/UpdateRecordDialog.jsx';
 import AllCars from './AllCars.jsx';
 import CarsCashBack from './CarsCashBack.jsx';
 import CarsNotCashBack from './CarsNotCashBack.jsx';
@@ -113,6 +114,7 @@ const Dashboard = () => {
 	return (
 		<div className={classes.root}>
 			<AddNew />
+			<UpdateRecordDialog />
 			<CssBaseline />
 			<AppBar
 				position='absolute'

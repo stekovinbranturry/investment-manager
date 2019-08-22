@@ -121,4 +121,20 @@ Router.post('/update-user', (req, res) => {
 	);
 });
 
+Router.post('/update-car', (req, res) => {
+	console.log(req.body);
+	const { userid } = req.cookies;
+	const { itemID, isCashBack, sellMethod } = req.body;
+	User.updateOne(
+		{ _id: userid, 'cars.itemID': itemID },
+		{
+			$set: { 'cars.$.isCashBack': isCashBack, 'cars.$.sellMethod': sellMethod }
+		},
+		(err, doc) =>
+			doc
+				? res.json({ code: 1600, msg: '更新成功' })
+				: res.json({ code: 1601, msg: '更新失败' })
+	);
+});
+
 module.exports = Router;
