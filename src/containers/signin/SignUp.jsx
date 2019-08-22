@@ -124,7 +124,7 @@ const SignUp = () => {
 								autoFocus
 								error={errorCheck && !lastName}
 								value={lastName}
-								onChange={e => setLastName(e.target.value)}
+								onChange={e => setLastName(e.target.value.trim())}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -138,7 +138,7 @@ const SignUp = () => {
 								label='名'
 								error={errorCheck && !firstName}
 								value={firstName}
-								onChange={e => setFirstName(e.target.value)}
+								onChange={e => setFirstName(e.target.value.trim())}
 							/>
 						</Grid>
 						{usernameErr ? (
@@ -160,7 +160,7 @@ const SignUp = () => {
 								type='username'
 								error={errorCheck && (!username || usernameErr)}
 								value={username}
-								onChange={e => setUsername(e.target.value)}
+								onChange={e => setUsername(e.target.value.trim())}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -175,7 +175,7 @@ const SignUp = () => {
 								autoComplete='current-password'
 								error={errorCheck && !password}
 								value={password}
-								onChange={e => setPassword(e.target.value)}
+								onChange={e => setPassword(e.target.value.trim())}
 							/>
 						</Grid>
 						{pwdErr ? (
@@ -197,7 +197,7 @@ const SignUp = () => {
 								autoComplete='current-password'
 								error={errorCheck && (!cfmPassword || pwdErr)}
 								value={cfmPassword}
-								onChange={e => setCfmPassword(e.target.value)}
+								onChange={e => setCfmPassword(e.target.value.trim())}
 							/>
 						</Grid>
 					</Grid>
