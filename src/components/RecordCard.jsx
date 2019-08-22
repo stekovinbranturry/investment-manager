@@ -29,12 +29,12 @@ const RecordCard = ({ cars }) => {
 		sellDate,
 		profit
 	} = cars;
-	const img = require(`../image/${carType}.jpg`);
+	const img = require(`../image/${carType}.svg`);
 
 	return (
 		<Grid key={itemID} item xs={12} sm={12} md={4} lg={3}>
 			<Card>
-				<Table size='small'>
+				<Table size='small' padding='defalut'>
 					<TableHead>
 						<TableRow>
 							<TableCell
@@ -42,7 +42,11 @@ const RecordCard = ({ cars }) => {
 								align='center'
 								className={classes.sizeSmall}
 							>
-								<img style={{ height: '1.5rem' }} src={img} alt={carType} />
+								<img
+									style={{ height: '1.5rem', verticalAlign: 'middle' }}
+									src={img}
+									alt={carType}
+								/>
 							</TableCell>
 							<TableCell
 								size='small'
