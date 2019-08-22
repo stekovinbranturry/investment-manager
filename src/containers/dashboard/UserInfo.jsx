@@ -19,6 +19,8 @@ const UserInfo = () => {
 
 	const handleUpdate = () => {
 		const payload = {
+			firstName: firstNameInput,
+			lastName: lastNameInput,
 			weifen: weifenInput
 		};
 		updateUser(payload);
@@ -31,13 +33,12 @@ const UserInfo = () => {
 					Welcome {username}
 				</Typography>
 			</div>
-			<div className={classes.userInfo}>
-				{isEditable ? (
-					<Check color='secondary' onClick={handleUpdate} />
-				) : (
+
+			{!isEditable && (
+				<div className={classes.userInfo}>
 					<Edit color='primary' onClick={() => setIsEditable(true)} />
-				)}
-			</div>
+				</div>
+			)}
 			<TextField
 				disabled={!isEditable}
 				label='姓'
@@ -65,7 +66,12 @@ const UserInfo = () => {
 				margin='normal'
 				variant='outlined'
 			/>
-
+			<div className={classes.userInfo}>
+				{isEditable && (
+					<Check color='secondary' fontSize='large' onClick={handleUpdate} />
+				)}
+			</div>
+			<div className={classes.userInfo} />
 			<div className={classes.userInfo}>
 				<SignOut />
 			</div>
