@@ -16,24 +16,91 @@ class Store {
 
 	@observable ownedCars = [];
 
+	// 已回款的车辆列表
 	@computed get carsCashBack() {
 		return toJS(this.ownedCars).filter(item => item.isCashBack === 1);
 	}
+	// 未回款的车辆列表
 	@computed get carsNotCashBack() {
 		return toJS(this.ownedCars).filter(item => item.isCashBack === 0);
 	}
+	// 今日购买列表
 	@computed get todayBuy() {
 		return toJS(this.ownedCars).filter(
 			item => dateFormat(item.buyDate) === dateFormat(new Date())
 		);
 	}
+	// 今日出售列表
 	@computed get todaySell() {
 		return toJS(this.ownedCars).filter(
 			item => dateFormat(item.sellDate) === dateFormat(new Date())
 		);
 	}
+	// 购买车辆数量
 	@computed get totalNumber() {
 		return this.ownedCars.length;
+	}
+	// 已回款车辆数量
+	@computed get totalNumberCashBack() {
+		return this.ownedCars.filter(item => item.isCashBack === 1).length;
+	}
+	// 未回款车辆数量
+	@computed get totalNumberNotCashBack() {
+		return this.ownedCars.filter(item => item.isCashBack === 0).length;
+	}
+	// 总投入
+	@computed get totalBuyMoney() {
+		return this.ownedCars
+			.reduce((total, item) => total + item.buyPrice, 0)
+			.toFixed(2);
+	}
+	// 总投入（已回款部分）
+	@computed get totalBuyMoneyCashBack() {
+		return this.carsCashBack
+			.reduce((total, item) => total + item.buyPrice, 0)
+			.toFixed(2);
+	}
+	// 总投入（未回款部分）
+	@computed get totalBuyMoneyNotCashBack() {
+		return this.carsNotCashBack
+			.reduce((total, item) => total + item.buyPrice, 0)
+			.toFixed(2);
+	}
+	// 预计总回款金额
+	@computed get totalSellMoney() {
+		return this.ownedCars
+			.reduce((total, item) => total + item.sellPrice, 0)
+			.toFixed(2);
+	}
+	// 已回款金额
+	@computed get totalSellMoneyCashBack() {
+		return this.carsCashBack
+			.reduce((total, item) => total + item.sellPrice, 0)
+			.toFixed(2);
+	}
+	// 未回款金额
+	@computed get totalSellMoneyNotCashBack() {
+		return this.carsNotCashBack
+			.reduce((total, item) => total + item.sellPrice, 0)
+			.toFixed(2);
+	}
+	// 预计总收益
+	@computed get totalProfit() {
+		return this.ownedCars
+			.reduce((total, item) => total + item.profit, 0)
+			.toFixed(2);
+	}
+	// 已回款收益
+	@computed get totalProfitCashBack() {
+		return this.carsCashBack
+			.reduce((total, item) => total + item.profit, 0)
+			.toFixed(2);
+	}
+	// 未回款收益
+	@computed get totalProfitNotCashBack() {
+		return this.carsNotCashBack
+			.reduce((total, item) => total + item.profit, 0)
+			.toFixed(2);
 	}
 
 	@action initUser = () => {

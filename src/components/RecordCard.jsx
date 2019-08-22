@@ -34,7 +34,7 @@ const RecordCard = ({ cars }) => {
 	return (
 		<Grid key={itemID} item xs={12} sm={12} md={4} lg={3}>
 			<Card>
-				<Table size='small' padding='defalut'>
+				<Table size='small' padding='default'>
 					<TableHead>
 						<TableRow>
 							<TableCell
@@ -140,34 +140,6 @@ const RecordCard = ({ cars }) => {
 						</TableRow>
 					</TableBody>
 				</Table>
-
-				{/* <CardActionArea>
-					<CardContent>
-						<Typography gutterBottom variant='subtitle1' component='h5'>
-							<img style={{ height: '1.5rem' }} src={img} alt={carType} />
-							{carType}
-							{seperator()}
-							净赚：{profit}
-							{seperator()}
-							{isCashBack === 0 ? '未回款' : '已回款'}
-						</Typography>
-						<Typography gutterBottom variant='body2' component='h5'>
-							买入：{buyPrice}
-							{seperator()}
-							{buyDate}
-							{seperator()}
-							<PaymentIcon type={buyMethod} />
-						</Typography>
-
-						<Typography gutterBottom variant='body2' component='h5'>
-							卖出：{sellPrice}
-							{seperator()}
-							{sellDate}
-							{seperator()}
-							<PaymentIcon type={sellMethod} />
-						</Typography>
-					</CardContent>
-				</CardActionArea> */}
 			</Card>
 		</Grid>
 	);
