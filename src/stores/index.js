@@ -234,6 +234,23 @@ class Store {
 	@action updateRecordToUpdate = payload => {
 		this.recordToUpdate = { ...this.recordToUpdate, ...payload };
 	};
+
+	@action deleterRecord = () => {
+		axios
+			.post('/user/delete-car', { itemID: this.recordToUpdate.itemID })
+			.then(res => {
+				if ((res.status === 200) & (res.data.code === 1700)) {
+					console.log(res.data.msg);
+					this.ownedCars = this.ownedCars.filter(
+						item => item.itemID !== this.recordToUpdate.itemID
+					);
+				}
+				if ((res.status === 200) & (res.data.code === 1701)) {
+					console.log(res.data.msg);
+				}
+			})
+			.catch(err => console.log(err));
+	};
 }
 
 const StoreContext = createContext(new Store());

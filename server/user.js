@@ -137,4 +137,20 @@ Router.post('/update-car', (req, res) => {
 	);
 });
 
+Router.post('/delete-car', (req, res) => {
+	console.log(req.body);
+	const { userid } = req.cookies;
+	const { itemID } = req.body;
+	User.updateOne(
+		{ _id: userid },
+		{
+			$pull: { cars: { itemID } }
+		},
+		(err, doc) =>
+			doc
+				? res.json({ code: 1700, msg: '删除成功' })
+				: res.json({ code: 1701, msg: '删除失败' })
+	);
+});
+
 module.exports = Router;
