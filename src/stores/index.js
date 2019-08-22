@@ -2,6 +2,7 @@ import { observable, action, computed, toJS } from 'mobx';
 import { createContext } from 'react';
 import axios from 'axios';
 import { dateFormat } from '../utils/date';
+import { sortGoodsArray } from '../utils/sortGoodsArray';
 class Store {
 	/**
 	 * User
@@ -45,7 +46,7 @@ class Store {
 						...this.user,
 						...{ _id, firstName, lastName, username }
 					};
-					this.ownedCars = [...this.ownedCars, ...cars];
+					this.ownedCars = sortGoodsArray([...this.ownedCars, ...cars]);
 				}
 				if (res.status === 200 && res.data.code === 1) {
 					console.log(res.data.msg);
@@ -59,7 +60,7 @@ class Store {
 			.post('/user/add', payload)
 			.then(res => {
 				if (res.status === 200 && res.data.code === 1400) {
-					this.ownedCars = [...this.ownedCars, payload];
+					this.ownedCars = sortGoodsArray([...this.ownedCars, payload]);
 				}
 			})
 			.catch(err => console.log(err));
