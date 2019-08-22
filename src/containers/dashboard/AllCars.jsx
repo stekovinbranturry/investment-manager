@@ -3,9 +3,7 @@ import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import uuid from 'uuid/v4';
 import StoreContext from '../../stores';
-import { Grid } from '@material-ui/core';
-import RecordCard from '../../components/RecordCard.jsx';
-import SummaryCard from '../../components/SummaryCard.jsx';
+import CarsCommon from './CarsCommon.jsx';
 
 const AllCars = () => {
 	const store = useContext(StoreContext);
@@ -39,14 +37,7 @@ const AllCars = () => {
 			value: `￥ ${totalProfit}`
 		}
 	];
-	return (
-		<Grid container spacing={1}>
-			<SummaryCard summary={summary} />
-			{toJS(ownedCars).map(item => (
-				<RecordCard key={item.itemID} cars={item} />
-			))}
-		</Grid>
-	);
+	return <CarsCommon summary={summary} carsList={toJS(ownedCars)} />;
 };
 
 export default observer(AllCars);
