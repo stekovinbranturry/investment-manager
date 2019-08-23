@@ -9,7 +9,7 @@ const PaymentIcon = ({ type }) => {
 		case 'wechatpay':
 			return (
 				<img
-					style={{ height: '20px', verticalAlign: 'middle' }}
+					style={{ height: '1rem', verticalAlign: 'middle' }}
 					src={wechatpayIcon}
 					alt='wechatpay'
 				/>
@@ -17,7 +17,7 @@ const PaymentIcon = ({ type }) => {
 		case 'alipay':
 			return (
 				<img
-					style={{ height: '20px', verticalAlign: 'middle' }}
+					style={{ height: '1rem', verticalAlign: 'middle' }}
 					src={alipayIcon}
 					alt='alipay'
 				/>
@@ -25,7 +25,7 @@ const PaymentIcon = ({ type }) => {
 		case 'unionpay':
 			return (
 				<img
-					style={{ height: '20px', verticalAlign: 'middle' }}
+					style={{ height: '1rem', verticalAlign: 'middle' }}
 					src={unionpayIcon}
 					alt='unionpay'
 				/>
