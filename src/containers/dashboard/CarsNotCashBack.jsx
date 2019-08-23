@@ -17,22 +17,22 @@ const CarsNotCashBack = () => {
 	const summary = [
 		{
 			id: uuid(),
-			name: '未回款车辆:',
+			name: '待回款车辆:',
 			value: `${totalNumberNotCashBack} 辆`
 		},
 		{
 			id: uuid(),
-			name: '未回款投入:',
+			name: '待回款投入:',
 			value: `￥ ${totalBuyMoneyNotCashBack}`
 		},
 		{
 			id: uuid(),
-			name: '未回款收入:',
+			name: '待回款收入:',
 			value: `￥ ${totalSellMoneyNotCashBack}`
 		},
 		{
 			id: uuid(),
-			name: '未回款收益:',
+			name: '待回款收益:',
 			value: `￥ ${totalProfitNotCashBack}`
 		}
 	];

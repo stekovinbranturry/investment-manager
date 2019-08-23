@@ -99,7 +99,7 @@ const Dashboard = () => {
 			case carsCashBack:
 				return '已回款';
 			case carsNotCashBack:
-				return '未回款';
+				return '待回款';
 			case today:
 				return '今日';
 			case goodsInfo:
@@ -195,7 +195,7 @@ const Dashboard = () => {
 						</ListItemIcon>
 						<ListItemText
 							className={isCarsNotCashBack ? classes.selectedDrawer : 'noclass'}
-							primary='未回款'
+							primary='待回款'
 						/>
 					</ListItem>
 					<ListItem button onClick={() => setDrawer(today)}>
