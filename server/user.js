@@ -129,11 +129,16 @@ Router.post('/update-car', (req, res) => {
 	User.updateOne(
 		{ _id: userid, 'cars.itemID': itemID },
 		{
-			$set: {
-				'cars.$.isCashBack': isCashBack,
-				'cars.$.sellMethod': sellMethod,
-				'cars.$.sellDate': sellDate
-			}
+			$set: sellDate
+				? {
+						'cars.$.isCashBack': isCashBack,
+						'cars.$.sellMethod': sellMethod,
+						'cars.$.sellDate': sellDate
+				  }
+				: {
+						'cars.$.isCashBack': isCashBack,
+						'cars.$.sellMethod': sellMethod
+				  }
 		},
 		(err, doc) =>
 			doc

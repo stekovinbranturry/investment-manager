@@ -42,12 +42,20 @@ const UpdateRecordDialog = () => {
 		closeUpdateRecordDialog();
 	};
 	const handleUpdate = () => {
-		updateRecord({
-			itemID,
-			isCashBack,
-			sellMethod,
+		updateRecord(
 			sellDate
-		});
+				? {
+						itemID,
+						isCashBack,
+						sellMethod,
+						sellDate
+				  }
+				: {
+						itemID,
+						isCashBack,
+						sellMethod
+				  }
+		);
 		closeUpdateRecordDialog();
 	};
 	const handleConfirmDelete = () => {
@@ -101,7 +109,7 @@ const UpdateRecordDialog = () => {
 							</FormControl>
 							<FormControl className={classes.dialogInput}>
 								<InputLabel shrink={true} htmlFor='date'>
-									回款日期
+									逾期回款请选择回款日期，否则可以不选
 								</InputLabel>
 								<Input
 									id='date'
