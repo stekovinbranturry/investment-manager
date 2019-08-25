@@ -40,7 +40,7 @@ class Store {
 	// 过期未回款
 	@computed get expiredCars() {
 		return toJS(this.carsNotCashBack).filter(
-			item => new Date(item.sellDate) < getYesterday()
+			item => new Date(item.sellDate.split('-').join('/')) < getYesterday()
 		);
 	}
 	// 购买车辆数量

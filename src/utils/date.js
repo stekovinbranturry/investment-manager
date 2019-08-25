@@ -1,5 +1,6 @@
 export const dateFormat = date => {
-	const newDate = new Date(date);
+	const newDate =
+		date[4] === '-' ? new Date(date.split('-').join('/')) : new Date(date);
 	const [y, m, d] = [
 		newDate.getFullYear(),
 		newDate.getMonth() + 1,
