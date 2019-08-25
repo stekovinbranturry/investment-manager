@@ -14,28 +14,31 @@ const CarsNotCashBack = () => {
 		totalSellMoneyNotCashBack,
 		totalProfitNotCashBack
 	} = store;
-	const summary = [
-		{
-			id: uuid(),
-			name: '待回款车辆:',
-			value: `${totalNumberNotCashBack} 辆`
-		},
-		{
-			id: uuid(),
-			name: '待回款投入:',
-			value: `￥ ${totalBuyMoneyNotCashBack}`
-		},
-		{
-			id: uuid(),
-			name: '待回款收入:',
-			value: `￥ ${totalSellMoneyNotCashBack}`
-		},
-		{
-			id: uuid(),
-			name: '待回款收益:',
-			value: `￥ ${totalProfitNotCashBack}`
-		}
-	];
+	const summary = {
+		title: '待回款车辆',
+		details: [
+			{
+				id: uuid(),
+				name: '车辆数（辆）:',
+				value: `${totalNumberNotCashBack}`
+			},
+			{
+				id: uuid(),
+				name: '买入（元）:',
+				value: `${totalBuyMoneyNotCashBack}`
+			},
+			{
+				id: uuid(),
+				name: '卖出（元）:',
+				value: `${totalSellMoneyNotCashBack}`
+			},
+			{
+				id: uuid(),
+				name: '盈利（元）:',
+				value: `${totalProfitNotCashBack}`
+			}
+		]
+	};
 	return <CarsCommon summary={summary} carsList={toJS(carsNotCashBack)} />;
 };
 

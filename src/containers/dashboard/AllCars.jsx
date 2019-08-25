@@ -15,28 +15,31 @@ const AllCars = () => {
 		totalProfit
 	} = store;
 
-	const summary = [
-		{
-			id: uuid(),
-			name: '已购车辆:',
-			value: `${totalNumber} 辆`
-		},
-		{
-			id: uuid(),
-			name: '总投入:',
-			value: `￥ ${totalBuyMoney}`
-		},
-		{
-			id: uuid(),
-			name: '预计总收入:',
-			value: `￥ ${totalSellMoney}`
-		},
-		{
-			id: uuid(),
-			name: '预计总收益:',
-			value: `￥ ${totalProfit}`
-		}
-	];
+	const summary = {
+		title: '全部车辆',
+		details: [
+			{
+				id: uuid(),
+				name: '车辆数（辆）:',
+				value: `${totalNumber}`
+			},
+			{
+				id: uuid(),
+				name: '买入（元）:',
+				value: `${totalBuyMoney}`
+			},
+			{
+				id: uuid(),
+				name: '卖出（元）:',
+				value: `${totalSellMoney}`
+			},
+			{
+				id: uuid(),
+				name: '盈利（元）:',
+				value: `${totalProfit}`
+			}
+		]
+	};
 	return <CarsCommon summary={summary} carsList={toJS(ownedCars)} />;
 };
 

@@ -31,13 +31,13 @@ const SummaryCard = ({ summary }) => {
 					id='panel1a-header'
 				>
 					<Typography className={dashBoardClasses.expansionPanelSummary}>
-						汇总
+						{summary.title}汇总
 					</Typography>
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails>
 					<Table size='small'>
 						<TableHead>
-							{summary.map(({ id, name, value }) => (
+							{summary.details.map(({ id, name, value }) => (
 								<TableRow key={id}>
 									<TableCell
 										size='small'

@@ -14,28 +14,31 @@ const CarsCashBack = () => {
 		totalSellMoneyCashBack,
 		totalProfitCashBack
 	} = store;
-	const summary = [
-		{
-			id: uuid(),
-			name: '已回款车辆:',
-			value: `${totalNumberCashBack} 辆`
-		},
-		{
-			id: uuid(),
-			name: '已回款投入:',
-			value: `￥ ${totalBuyMoneyCashBack}`
-		},
-		{
-			id: uuid(),
-			name: '已回款收入:',
-			value: `￥ ${totalSellMoneyCashBack}`
-		},
-		{
-			id: uuid(),
-			name: '已回款收益:',
-			value: `￥ ${totalProfitCashBack}`
-		}
-	];
+	const summary = {
+		title: '已回款车辆',
+		details: [
+			{
+				id: uuid(),
+				name: '车辆数（辆）:',
+				value: `${totalNumberCashBack}`
+			},
+			{
+				id: uuid(),
+				name: '买入（元）:',
+				value: `${totalBuyMoneyCashBack}`
+			},
+			{
+				id: uuid(),
+				name: '卖出（元）:',
+				value: `${totalSellMoneyCashBack}`
+			},
+			{
+				id: uuid(),
+				name: '盈利（元）:',
+				value: `${totalProfitCashBack}`
+			}
+		]
+	};
 	return <CarsCommon summary={summary} carsList={toJS(carsCashBack)} />;
 };
 
