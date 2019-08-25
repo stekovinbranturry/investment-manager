@@ -77,7 +77,7 @@ const RecordCard = ({ cars }) => {
 								className={classes.sizeSmall}
 							>
 								{isCashBack === 0 ? (
-									<span style={{ color: '#f4511e' }}>未回款</span>
+									<span style={{ color: '#f4511e' }}>待回款</span>
 								) : (
 									<span style={{ color: '#43a047' }}>已回款</span>
 								)}

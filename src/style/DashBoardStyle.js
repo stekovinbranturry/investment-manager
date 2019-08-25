@@ -94,6 +94,10 @@ const DashBoardStyle = makeStyles(theme => ({
 	},
 	userInfo: {
 		padding: theme.spacing(1, 0)
+	},
+	expansionPanelSummary: {
+		fontSize: theme.typography.pxToRem(15),
+		fontWeight: theme.typography.fontWeightRegular
 	}
 }));
 

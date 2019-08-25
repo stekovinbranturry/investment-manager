@@ -66,6 +66,8 @@ const AddNew = () => {
 			profit: parseFloat((sellPrice - buyPrice).toFixed(2))
 		};
 		addNewItem(item);
+		setBuyPrice(0);
+		setIsCashBack(0);
 		closeAddNew();
 	};
 
@@ -154,13 +156,18 @@ const AddNew = () => {
 					<InputLabel htmlFor='cashback-native-required'>是否回款</InputLabel>
 					<NativeSelect
 						value={isCashBack}
-						onChange={e => setIsCashBack(parseInt(e.target.value))}
+						onChange={e => {
+							setIsCashBack(parseInt(e.target.value));
+							if (e.target.value === '0') {
+								setSellMethod('');
+							}
+						}}
 						name='cashback'
 						inputProps={{
 							id: 'cashback-native-required'
 						}}
 					>
-						<option value={0}>尚未回款</option>
+						<option value={0}>待回款</option>
 						<option value={1}>已回款</option>
 					</NativeSelect>
 				</FormControl>

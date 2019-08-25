@@ -65,7 +65,7 @@ const UpdateRecordDialog = () => {
 								id: 'cashback-native-required'
 							}}
 						>
-							<option value={0}>尚未回款</option>
+							<option value={0}>待回款</option>
 							<option value={1}>已回款</option>
 						</NativeSelect>
 					</FormControl>

@@ -21,7 +21,7 @@ class Store {
 	@computed get carsCashBack() {
 		return toJS(this.ownedCars).filter(item => item.isCashBack === 1);
 	}
-	// 未回款的车辆列表
+	// 待回款的车辆列表
 	@computed get carsNotCashBack() {
 		return toJS(this.ownedCars).filter(item => item.isCashBack === 0);
 	}
@@ -51,7 +51,7 @@ class Store {
 	@computed get totalNumberCashBack() {
 		return this.ownedCars.filter(item => item.isCashBack === 1).length;
 	}
-	// 未回款车辆数量
+	// 待回款车辆数量
 	@computed get totalNumberNotCashBack() {
 		return this.ownedCars.filter(item => item.isCashBack === 0).length;
 	}
@@ -67,7 +67,7 @@ class Store {
 			.reduce((total, item) => total + item.buyPrice, 0)
 			.toFixed(2);
 	}
-	// 总投入（未回款部分）
+	// 总投入（待回款部分）
 	@computed get totalBuyMoneyNotCashBack() {
 		return this.carsNotCashBack
 			.reduce((total, item) => total + item.buyPrice, 0)
@@ -85,7 +85,7 @@ class Store {
 			.reduce((total, item) => total + item.sellPrice, 0)
 			.toFixed(2);
 	}
-	// 未回款金额
+	// 待回款金额
 	@computed get totalSellMoneyNotCashBack() {
 		return this.carsNotCashBack
 			.reduce((total, item) => total + item.sellPrice, 0)
@@ -103,7 +103,7 @@ class Store {
 			.reduce((total, item) => total + item.profit, 0)
 			.toFixed(2);
 	}
-	// 未回款收益
+	// 待回款收益
 	@computed get totalProfitNotCashBack() {
 		return this.carsNotCashBack
 			.reduce((total, item) => total + item.profit, 0)
