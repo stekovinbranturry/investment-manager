@@ -124,11 +124,16 @@ Router.post('/update-user', (req, res) => {
 Router.post('/update-car', (req, res) => {
 	console.log(req.body);
 	const { userid } = req.cookies;
-	const { itemID, isCashBack, sellMethod } = req.body;
+	const { itemID, isCashBack, sellMethod, sellDate } = req.body;
+	console.log(sellDate);
 	User.updateOne(
 		{ _id: userid, 'cars.itemID': itemID },
 		{
-			$set: { 'cars.$.isCashBack': isCashBack, 'cars.$.sellMethod': sellMethod }
+			$set: {
+				'cars.$.isCashBack': isCashBack,
+				'cars.$.sellMethod': sellMethod,
+				'cars.$.sellDate': sellDate
+			}
 		},
 		(err, doc) =>
 			doc

@@ -9,7 +9,8 @@ import {
 	DialogTitle,
 	InputLabel,
 	FormControl,
-	NativeSelect
+	NativeSelect,
+	Input
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import StoreContext from '../stores';
@@ -28,7 +29,15 @@ const UpdateRecordDialog = () => {
 	const { itemID, carType } = toJS(recordToUpdate);
 	const [isCashBack, setIsCashBack] = useState(0);
 	const [sellMethod, setSellMethod] = useState('');
+	const [sellDate, setSellDate] = useState('');
 	const [confirmOpen, setConfirmOpen] = useState(false);
+	const handleSelectIsCashBack = v => {
+		setIsCashBack(parseInt(v));
+		if (v === '0') {
+			setSellMethod('');
+			setSellDate('');
+		}
+	};
 	const handleClose = () => {
 		closeUpdateRecordDialog();
 	};
@@ -36,7 +45,8 @@ const UpdateRecordDialog = () => {
 		updateRecord({
 			itemID,
 			isCashBack,
-			sellMethod
+			sellMethod,
+			sellDate
 		});
 		closeUpdateRecordDialog();
 	};
@@ -59,7 +69,7 @@ const UpdateRecordDialog = () => {
 						<InputLabel htmlFor='cashback-native-required'>是否回款</InputLabel>
 						<NativeSelect
 							value={isCashBack}
-							onChange={e => setIsCashBack(parseInt(e.target.value))}
+							onChange={e => handleSelectIsCashBack(e.target.value)}
 							name='cashback'
 							inputProps={{
 								id: 'cashback-native-required'
@@ -70,24 +80,37 @@ const UpdateRecordDialog = () => {
 						</NativeSelect>
 					</FormControl>
 					{isCashBack === 1 && (
-						<FormControl required className={classes.dialogInput}>
-							<InputLabel shrink={true} htmlFor='sell-native-required'>
-								回款渠道
-							</InputLabel>
-							<NativeSelect
-								value={sellMethod}
-								onChange={e => setSellMethod(e.target.value)}
-								name='sell'
-								inputProps={{
-									id: 'sell-native-required'
-								}}
-							>
-								<option value='' />
-								<option value='wechatpay'>微信</option>
-								<option value='alipay'>支付宝</option>
-								<option value='unionpay'>银联</option>
-							</NativeSelect>
-						</FormControl>
+						<Fragment>
+							<FormControl required className={classes.dialogInput}>
+								<InputLabel shrink={true} htmlFor='sell-native-required'>
+									回款渠道
+								</InputLabel>
+								<NativeSelect
+									value={sellMethod}
+									onChange={e => setSellMethod(e.target.value)}
+									name='sell'
+									inputProps={{
+										id: 'sell-native-required'
+									}}
+								>
+									<option value='' />
+									<option value='wechatpay'>微信</option>
+									<option value='alipay'>支付宝</option>
+									<option value='unionpay'>银联</option>
+								</NativeSelect>
+							</FormControl>
+							<FormControl className={classes.dialogInput}>
+								<InputLabel shrink={true} htmlFor='date'>
+									回款日期
+								</InputLabel>
+								<Input
+									id='date'
+									type='date'
+									value={sellDate}
+									onChange={e => setSellDate(e.target.value)}
+								/>
+							</FormControl>
+						</Fragment>
 					)}
 				</DialogContent>
 				<DialogActions>
