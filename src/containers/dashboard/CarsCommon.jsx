@@ -12,7 +12,7 @@ const CarsCommon = ({ summary, carsList }) => {
 			<Grid container spacing={1}>
 				<Grid item>
 					<Typography variant='subtitle1' component='p'>
-						*点击卡片更新记录
+						*点击车标更新记录
 					</Typography>
 				</Grid>
 			</Grid>

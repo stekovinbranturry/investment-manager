@@ -41,7 +41,7 @@ const RecordCard = ({ cars }) => {
 	};
 	return (
 		<Grid key={itemID} item xs={12} sm={6} md={4} lg={3}>
-			<Card onClick={handleClickCard}>
+			<Card>
 				<Table size='small' padding='default'>
 					<TableHead>
 						<TableRow>
@@ -49,6 +49,7 @@ const RecordCard = ({ cars }) => {
 								size='small'
 								align='center'
 								className={classes.sizeSmall}
+								onClick={handleClickCard}
 							>
 								<img
 									style={{ height: '1.5rem', verticalAlign: 'middle' }}
