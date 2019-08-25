@@ -64,11 +64,20 @@ const SummaryCard = ({ summary }) => {
 };
 
 SummaryCard.propTypes = {
-	summary: PropTypes.array
+	summary: PropTypes.object
 };
 
 SummaryCard.defaultProps = {
-	summary: [{ id: '', name: '', value: '' }]
+	summary: {
+		title: '',
+		details: [
+			{
+				id: '',
+				name: '',
+				value: ''
+			}
+		]
+	}
 };
 
 export default SummaryCard;
