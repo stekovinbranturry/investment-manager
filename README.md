@@ -28,10 +28,6 @@
 ### 部分截图
 
 ![1](./static/1.jpg)
-![2](./static/2.jpg)
-![3](./static/3.jpg)
-![4](./static/4.jpg)
-![5](./static/5.jpg)
 ![6](./static/6.jpg)
 ![7](./static/7.jpg)
 ![8](./static/8.jpg)
